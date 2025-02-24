@@ -1,0 +1,25 @@
+{
+  "name": "cs5356-hw3",
+  "version": "1.0.0",
+  "description": "Fetch MTA subway data",
+  "main": "fetch-mta-data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kpan02/cs5356-hw3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kpan02/cs5356-hw3/issues"
+  },
+  "homepage": "https://github.com/kpan02/cs5356-hw3#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "protobufjs": "^7.2.5"
+  }
+}
