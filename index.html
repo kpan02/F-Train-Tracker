@@ -1,12 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC F Train Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Protocol Buffers library for parsing MTA data -->
+    <script src="https://cdn.jsdelivr.net/npm/protobufjs@7.2.5/dist/protobuf.min.js"></script>
+</head>
 <body>
+    <div class="container">
+        <header>
+            <h1>NYC F Train Tracker</h1>
+            <p>Description: This is a simple tracker for the F train in New York City. It uses the MTA API to get the current status of the F train and displays it on a timetable.</p>
+        </header>
 
-<h1>NYC F Train Tracker</h1>
-<p>Description: This is a simple tracker for the F train in New York City. It uses the MTA API to get the current status of the F train and displays it on a timetable.</p>
+        <main>
+            <div class="timetable-controls">
+                <h2>F Train Timetable</h2>
+                <div class="direction-tabs">
+                    <button id="northbound-tab" class="tab-button active">Northbound</button>
+                    <button id="southbound-tab" class="tab-button">Southbound</button>
+                </div>
+            </div>
 
-<h2>F Train Timetable</h2>
+            <div id="northbound-timetable" class="timetable active">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Station</th>
+                            <th>Next Trains</th>
+                        </tr>
+                    </thead>
+                    <tbody id="northbound-stations">
+                        <!-- Stations will be populated by app.js -->
+                    </tbody>
+                </table>
+            </div>
 
-<!-- https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-bdfm -->
+            <div id="southbound-timetable" class="timetable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Station</th>
+                            <th>Next Trains</th>
+                        </tr>
+                    </thead>
+                    <tbody id="southbound-stations">
+                        <!-- Stations will be populated by app.js -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="data-source-info" class="data-source-info">
+                <p>Data source: <span id="data-source">Loading...</span></p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Last updated: <span id="last-updated">--</span></p>
+        </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>
