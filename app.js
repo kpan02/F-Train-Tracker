@@ -83,6 +83,11 @@ function updateStationRows(container, stationData) {
     const rows = container.querySelectorAll('tr');
     
     rows.forEach(row => {
+        // Skip borough header rows
+        if (row.classList.contains('borough-header')) {
+            return; 
+        }
+        
         const stationCell = row.querySelector('.station-name');
         if (!stationCell) return;
         
@@ -91,7 +96,6 @@ function updateStationRows(container, stationData) {
         if (!trainsCell) return;
         trainsCell.innerHTML = '';
         
-  
         const arrivals = stationData[stationName] || [];
         
         if (arrivals.length === 0) {
@@ -124,17 +128,77 @@ function updateStationRows(container, stationData) {
  */
 function populateStationTable(stations, container) {
     container.innerHTML = '';
+    const isNorthbound = stations[0] === 'Coney Island-Stillwell Av';
+    const boroughOrder = isNorthbound ? 
+        ['Brooklyn', 'Manhattan', 'Queens'] : 
+        ['Queens', 'Manhattan', 'Brooklyn'];
+
+    boroughOrder.forEach(borough => {
+        addBoroughHeader(borough, container);
+        addStationsInBorough(borough, stations, container);
+    });
+}
+
+/**
+ * Adds a borough header to the table
+ * @param {string} boroughName - Name of the borough
+ * @param {HTMLElement} container - The tbody element to add to
+ */
+function addBoroughHeader(boroughName, container) {
+    const boroughRow = document.createElement('tr');
+    boroughRow.classList.add('borough-header');
     
-    stations.forEach(station => {
+    const boroughCell = document.createElement('td');
+    boroughCell.textContent = boroughName;
+    boroughCell.colSpan = 2;
+    boroughRow.appendChild(boroughCell);
+    
+    container.appendChild(boroughRow);
+}
+
+/**
+ * Adds stations from a specific borough to the table
+ * @param {string} boroughName - Name of the borough
+ * @param {Array} stations - Array of all station names
+ * @param {HTMLElement} container - The tbody element to add to
+ */
+function addStationsInBorough(boroughName, stations, container) {
+    const boroughStations = {
+        'Queens': [
+            'Jamaica-179 St', '169 St', 'Parsons Blvd', 'Sutphin Blvd', 'Briarwood', 
+            'Kew Gardens-Union Tpke', '75 Av', 'Forest Hills-71 Av', '67 Av', 
+            '63 Dr-Rego Park', 'Woodhaven Blvd', 'Grand Av-Newtown', 'Elmhurst Av', 
+            'Jackson Hts-Roosevelt Av', '65 St', 'Northern Blvd', '46 St', 'Steinway St', 
+            '36 St', '21 St-Queensbridge'
+        ],
+        'Manhattan': [
+            'Roosevelt Island', 'Lexington Av/63 St', '57 St', '47-50 Sts-Rockefeller Ctr', 
+            '42 St-Bryant Pk', '34 St-Herald Sq', '23 St', '14 St', 'W 4 St-Wash Sq', 
+            'Broadway-Lafayette St', '2 Av', 'Delancey St-Essex St', 'East Broadway'
+        ],
+        'Brooklyn': [
+            'York St', 'Jay St-MetroTech', 'Bergen St', 'Carroll St', 'Smith-9 Sts', 
+            '4 Av-9 St', '7 Av', '15 St-Prospect Park', 'Fort Hamilton Pkwy', 'Church Av', 
+            'Ditmas Av', '18 Av', 'Avenue I', 'Bay Pkwy', 'Avenue N', 'Avenue P', 'Kings Hwy', 
+            'Avenue U', 'Avenue X', 'Neptune Av', 'W 8 St-NY Aquarium', 'Coney Island-Stillwell Av'
+        ]
+    };
+    
+    const stationsInBorough = stations.filter(station => 
+        boroughStations[boroughName].includes(station)
+    );
+    
+    // Add each station row
+    stationsInBorough.forEach(station => {
         const row = document.createElement('tr');
         
-        // Station name cell
+        // Station name column
         const stationCell = document.createElement('td');
         stationCell.textContent = station;
         stationCell.classList.add('station-name');
         row.appendChild(stationCell);
         
-        // Next trains cell - will contain multiple train times
+        // Next trains column 
         const trainsCell = document.createElement('td');
         trainsCell.classList.add('train-times');
         

@@ -219,6 +219,23 @@ footer {
     font-size: 0.9rem;
 }
 
+/* Borough Header Styles */
+.borough-header {
+    background-color: #e7e7e7; 
+    color: #6b6a6a;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.borough-header td {
+    padding: 5px 20px !important;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .timetable-controls {
