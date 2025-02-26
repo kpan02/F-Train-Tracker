@@ -32,23 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
     populateStationTable(northboundStations, northboundStationsContainer);
     populateStationTable(fTrainStations, southboundStationsContainer);
     
-    // Refresh button
-    const refreshButton = document.createElement('button');
-    refreshButton.textContent = 'Refresh Data';
-    refreshButton.id = 'refresh-button';
-    refreshButton.addEventListener('click', refreshTrainData);
-    document.querySelector('.timetable-controls').appendChild(refreshButton);
-    
-    // Auto-refresh website every 60 seconds
+    // Initialize train data and set up auto-refresh every 30 seconds
     refreshTrainData();
-    setInterval(refreshTrainData, 60000);
+    setInterval(refreshTrainData, 30000);
 });
 
 /**
  * Refreshes the train data and updates the UI
  */
 async function refreshTrainData() {
-    document.getElementById('refresh-button').classList.add('refreshing');
     document.getElementById('data-source').textContent = 'Fetching data...';
     
     await fetchTrainData();
@@ -59,7 +51,6 @@ async function refreshTrainData() {
     if (trainData.lastUpdated) {
         document.getElementById('last-updated').textContent = trainData.lastUpdated.toLocaleString();
     }
-    document.getElementById('refresh-button').classList.remove('refreshing');
 }
 
 /**

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NYC F Train Tracker</title>
+    <link rel="icon" type="image/png" href="assets/f-train-logo.png">
     <link rel="stylesheet" href="styles.css">
     <!-- Protocol Buffers library for parsing MTA data -->
     <script src="https://cdn.jsdelivr.net/npm/protobufjs@7.2.5/dist/protobuf.min.js"></script>
@@ -11,16 +12,25 @@
 <body>
     <div class="container">
         <header>
-            <h1>NYC F Train Tracker</h1>
-            <p>Description: This is a simple tracker for the F train in New York City. It uses the MTA API to get the current status of the F train and displays it on a timetable.</p>
+            <div style="display: flex; align-items: center;">
+                <div style="flex: 0 0 20%;">
+                    <img src="assets/f-train-logo.png" alt="F Train Logo" style="max-width: 80%;">
+                </div>
+                <div style="flex: 0 0 80%; padding-left: 20px;">
+                    <h1>F Train Live Updates</h1>
+                    <p>Real-time tracking of the F train in New York City using MTA API data. Train arrival times update automatically every 30 seconds.</p>
+                </div>
+            </div>
         </header>
 
         <main>
+            <!-- <div style="display: flex; justify-content: center;">
+                <img src="assets/f-train-stops.jpg" alt="F Train Map" style="max-width: 80%; align-items: center;">
+            </div> -->
             <div class="timetable-controls">
-                <h2>F Train Timetable</h2>
                 <div class="direction-tabs">
-                    <button id="northbound-tab" class="tab-button active">Northbound</button>
-                    <button id="southbound-tab" class="tab-button">Southbound</button>
+                    <button id="northbound-tab" class="tab-button active"><strong>Northbound</strong> (To Queens)</button>
+                    <button id="southbound-tab" class="tab-button"><strong>Southbound</strong> (To Coney Island)</button>
                 </div>
             </div>
 
@@ -29,7 +39,7 @@
                     <thead>
                         <tr>
                             <th>Station</th>
-                            <th>Next Trains</th>
+                            <th>Upcoming Trains</th>
                         </tr>
                     </thead>
                     <tbody id="northbound-stations">
@@ -43,7 +53,7 @@
                     <thead>
                         <tr>
                             <th>Station</th>
-                            <th>Next Trains</th>
+                            <th>Upcoming Trains</th>
                         </tr>
                     </thead>
                     <tbody id="southbound-stations">
